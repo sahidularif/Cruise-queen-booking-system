@@ -12,7 +12,7 @@
     <!-- Stylesheet -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet" />
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+
 </head>
 
 <body>
@@ -42,7 +42,7 @@
 
 
         <div class="booking-form">
-            <form name="myForm" action="#" onsubmit="return validateForm()" method="post">
+            <form name="myForm" onsubmit="return validateForm()" method="post">
                 <h2>Book Ocean Time</h2>
                 <div class="input-group">
                     <label for="">Flying From</label>
@@ -68,7 +68,8 @@
                 <div class="input-group f-class align-items-center">
                     <div>
                         <label for="">First Class ($150)</label>
-                        <input id="firstClass-count" class="inp-style inp-width" type="number" name="firstClassInput" value="0">
+                        <input id="firstClass-count" class="inp-style inp-width" type="number" name="firstClassInput"
+                            value="0">
                     </div>
                     <div class="plus-minus-btn">
                         <p onclick="handleTicketChange('firstClass', false)" class="pointer"><i
@@ -85,7 +86,8 @@
                 <div class="input-group f-class align-items-center">
                     <div>
                         <label for="">Economy ($100)</label>
-                        <input id="economyClass-count" class="inp-style inp-width" type="number" name="economyClassInput" value="0">
+                        <input id="economyClass-count" class="inp-style inp-width" type="number"
+                            name="economyClassInput" value="0">
                     </div>
                     <div class="plus-minus-btn">
                         <p onclick="handleTicketChange('economyClass', false)" class="pointer"><i
@@ -129,20 +131,21 @@
                 </div>
 
 
-                <button class="btn-style">Book Now</button>
+                <button id="myModal" class="btn-style">Book Now</button>
             </form>
 
         </div>
 
 
-
+        </div>
     </main>
 
-    <!--Thank You-->
+
+
     <script>
         // Event handler function
         function handleTicketChange(ticket, isIncrease) {
-            const ticketCount = getInputValue(ticket);
+            const ticketCount = getTicketInput(ticket);
             let currentTicketCount = ticketCount;
             if (isIncrease == true) {
                 currentTicketCount = ticketCount + 1;
@@ -161,27 +164,27 @@
             document.getElementById('subTotal').innerText = '$' + ticketTotal;
             calculateTotal();
         }
+
         // Get input from element 
-        function getInputValue(ticket) {
+        function getTicketInput(ticket) {
             const ticketInput = document.getElementById(ticket + '-count');
             const ticketCount = parseInt(ticketInput.value);
             return ticketCount;
         }
+
         // Calculate ticket price
         function calculateTotal() {
-            const firstClassSeat = getInputValue('firstClass');
-            const economySeat = getInputValue('economyClass');
-
+            const firstClassSeat = getTicketInput('firstClass');
+            const economySeat = getTicketInput('economyClass');
             const totalPrice = firstClassSeat * 150 + economySeat * 100;
             document.getElementById('subTotal').innerText = '$' + totalPrice;
-
             const vat = Math.round(totalPrice * 0.1); // Charge 10% VAT
             document.getElementById('vat').innerText = '$' + vat;
-
             const grandTotal = totalPrice + vat;
             document.getElementById('grand-total').innerText = '$' + grandTotal;
         }
-        // validation input data
+
+        // == Bonus Work == validation of input data
         function validateForm() {
             const flyingForm = document.forms["myForm"]["flyingForm"].value;
             const flyingTo = document.forms["myForm"]["flyingTo"].value;
@@ -190,15 +193,15 @@
             const firstClassInput = document.forms["myForm"]["firstClassInput"].value;
             const economyClassInput = document.forms["myForm"]["economyClassInput"].value;
 
-            if (((flyingForm  && flyingTo && departureDate && returnDate) == "") && (firstClassInput && economyClassInput) == 0) {
+            if (((flyingForm && flyingTo && departureDate && returnDate) == "") && (firstClassInput &&
+                    economyClassInput) == 0) {
                 alert("All input must be filled out");
                 return false;
+            } else {
+                alert("Congratulation!  You have successfully purchase ticket");
+                return true;
             }
-          
-
-
         }
-
     </script>
     <script src="js/bootstrap.bundle.min.js"></script>
 </body>
